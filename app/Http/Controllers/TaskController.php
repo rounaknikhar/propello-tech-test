@@ -48,9 +48,16 @@ class TaskController extends Controller
     {
         $this->authorize('update', $task);
 
-        $task->update($request->validated());
+        $updated = $task->update($request->validated());
 
-        return redirect()->to(route('tasks.home'));
+        // Show error message if updaing wasn't successful.
+        if (!$updated) {
+            return redirect()->back()->withErrors(['error' => 'Task update failed.']);
+        }
+
+        // If requested update was a success,
+        // redirect to index with success message.
+        return redirect()->to(route('tasks.home'))->with('success', 'Task successfully updated');
     }
 
     public function destroy(Task $task): RedirectResponse
