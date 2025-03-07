@@ -27,12 +27,9 @@ Route::middleware(['auth', 'verified'])
         Route::post('edit/{task}', 'update')->name('update');
         Route::get('delete/{task}', 'destroy')->name('destroy');
         Route::get('complete/{task}', 'complete')->name('complete');
+        Route::get('add-tag/{task}{tag}', 'addTag')->name('add.tag');
+        Route::get('remove-tag/{task}{tag}', 'removeTag')->name('remove.tag');
     });
-
-// Route::resource(['tags', TagController::class], [
-//     'except' => ['show'],
-//     'middleware' => ['auth', 'verified']
-// ]);
 
 Route::middleware(['auth', 'verified'])
     ->prefix('tags')
@@ -45,7 +42,6 @@ Route::middleware(['auth', 'verified'])
         Route::get('edit/{tag}', 'edit')->name('edit');
         Route::post('edit/{tag}', 'update')->name('update');
         Route::get('delete/{tag}', 'destroy')->name('destroy');
-        Route::get('complete/{tag}', 'complete')->name('complete');
     });
 
 Route::middleware('auth')

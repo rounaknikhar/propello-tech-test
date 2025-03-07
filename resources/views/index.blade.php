@@ -6,6 +6,7 @@
             @if ($tasks->isNotEmpty())
                 <div class="w-full flex pb-2 border-b border-gray-200">
                     <div class="w-5/12 font-semibold">Name</div>
+                    <div class="w-5/12 font-semibold">Tags</div>
                     <div class="w-2/12 font-semibold">Created At</div>
                     <div class="w-5/12 font-semibold">Actions</div>
                 </div>
@@ -15,7 +16,7 @@
                 <x-partials.task-row :task="$task" />
             @endforeach
             <div class="w-full text-center pt-4">
-                <x-elements.link-button href="{{ route('tasks.create') }}">
+                <x-elements.link-button href="{{ route('tasks.create') }}" class="mr-2">
                     Add Task
                 </x-elements.link-button>
 
@@ -25,10 +26,4 @@
             </div>
         </div>
     </div>
-
-    {{--
-        Display the toast component if there's any
-        success or error message in the session.
-    --}}
-    <x-elements.flash-message />
 @endsection

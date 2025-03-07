@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Tag;
 use App\Models\Task;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -29,7 +30,10 @@ class TaskController extends Controller
     {
         $this->authorize('update', $task);
 
-        return view('tasks.edit', compact('task'));
+        // Paginate all tags.
+        $tags = Tag::paginate(5);
+
+        return view('tasks.edit', compact(['task', 'tags']));
     }
 
     public function store(CreateTaskRequest $request): RedirectResponse
@@ -77,5 +81,23 @@ class TaskController extends Controller
         $task->save();
 
         return redirect()->to(route('tasks.home'));
+    }
+
+    /**
+     * Rdd task tag.
+     */
+    public function addTag(Task $task, Tag $tag): RedirectResponse
+    {
+        $task->tags()->attach($tag->id);
+        return redirect()->back()->with('success', 'Tag successfully added');
+    }
+
+    /**
+     * Remove task tag.
+     */
+    public function removeTag(Task $task, Tag $tag): RedirectResponse
+    {
+        $task->tags()->detach($tag->id);
+        return redirect()->back()->with('success', 'Tag has been removed');
     }
 }

@@ -18,6 +18,7 @@ class TagFactory extends Factory
     {
         return [
             'name' => fake()->unique()->name(),
+            'user_id' => fake()->randomElement([1, 2])
         ];
     }
 }

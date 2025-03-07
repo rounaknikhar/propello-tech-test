@@ -21,6 +21,11 @@
                         @yield('content')
                     </div>
                 </div>
+                {{--
+                    Display the toast component if there's any
+                    success or error message in the session.
+                --}}
+                <x-elements.flash-message />
             </main>
         </div>
     </body>

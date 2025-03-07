@@ -3,7 +3,7 @@
 ])
 
 <div class="w-full flex py-2 border-b border-gray-100">
-    <div class="w-5/12 flex items-center {{ $tag?->complete ? 'line-through' : '' }}">{{ $tag?->name }}</div>
+    <div class="w-5/12 flex items-center">{{ $tag?->name }}</div>
     <div class="w-2/12 flex items-center">{{ $tag?->getTagCreator()->name }}</div>
     <div class="w-5/12 flex flex-wrap">
         @if ($tag?->isTagCreator())

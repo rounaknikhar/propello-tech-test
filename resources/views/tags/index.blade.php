@@ -14,6 +14,7 @@
             @foreach ($tags as $tag)
                 <x-partials.tag-row :tag="$tag" />
             @endforeach
+            {{ $tags->links() }}
             <div class="w-full text-center pt-4">
                 <x-elements.link-button href="{{ route('tags.create') }}">
                     Add Tag

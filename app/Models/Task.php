@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 /**
  * App\Models\Task
@@ -46,5 +47,24 @@ class Task extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'task_tag');
+    }
+
+    /**
+     * Get all the tag names attached to this task.
+     */
+    public function tagNames(): Collection
+    {
+        return $this->tags()->pluck('name');
+    }
+
+    /**
+     * Tag exists.
+     */
+    public function tagExists($tagId): bool
+    {
+        if ($this->tags()->exists($tagId)) {
+            return true;
+        }
+        return false;
     }
 }

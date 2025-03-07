@@ -24,5 +24,21 @@
                 </x-elements.primary-button>
             </form>
         </div>
+
+        <div class="mx-5 my-4">
+            <h2 class="text-xl mb-4">Tags</h2>
+            @foreach ($task->tags()->get() as $tag)
+                <div class="mr-1 inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-md font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset">
+                    <span class="pr-4">
+                        {{$tag->name}}
+                    </span>
+                    <a class="p-2 cursor-pointer hover:text-red-400 border-l"
+                        href="{{ route('tasks.remove.tag', ['task' => $task, 'tag' => $tag]) }}">
+                        X
+                    </a>
+                </div>
+            @endforeach
+        </div>
+        <x-table.attach-task-tag :task="$task" :tags="$tags" />
     </div>
 @endsection
